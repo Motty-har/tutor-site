@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Harlig Tutoring — Portfolio</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- EmailJS SDK -->
+  <script src="https://cdn.emailjs.com/sdk/3.11.0/email.min.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <a id="top"></a>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container nav">
+      <div class="brand">Harlig Tutoring</div>
+      <nav>
+        <a href="#about">About</a>
+        <a href="#subjects">Subjects</a>
+        <a href="#contact" class="btn btn--small">Get in Touch</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <h1>Structured, Engaging Tutoring</h1>
+      <p>Support in <strong>Coding</strong>, <strong>Bar Mitzvah</strong>, and <strong>Kodesh</strong> (Chumash & Gemara). Clear goals, steady progress, and parent-friendly updates.</p>
+      <a class="btn" href="#contact">Inquire Now</a>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="section">
+    <div class="container grid-2">
+      <div>
+        <h2>About Me</h2>
+        <p>
+          I’m a middle school Judaic studies teacher and tutor who also teaches coding.
+          My approach is structured, warm, and practical—clear goals, thoughtful practice,
+          and feedback that helps students grow. Parents get plain-English updates and a plan they can follow.
+        </p>
+        <ul class="checks">
+          <li>Chumash &amp; Gemara with a proven color-coding system</li>
+          <li>Bar Mitzvah laining, tefillah fluency, and confident delivery</li>
+          <li>Intro to Coding (JS/HTML/CSS) with simple, fun projects</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>What to Expect</h3>
+        <ul class="bullets">
+          <li>Clear targets for each session</li>
+          <li>Weekly progress notes on request</li>
+          <li>Flexible scheduling (in-person or online)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SUBJECTS -->
+  <section id="subjects" class="section alt">
+    <div class="container">
+      <h2>Subjects</h2>
+
+      <div class="subject-grid">
+        <!-- Coding -->
+        <button class="subject" data-type="Coding" data-info="JavaScript fundamentals, DOM, and bite-size projects (games, mini-apps) that build problem-solving habits and confidence." aria-controls="subject-modal">
+          <span class="subject__icon">
+            <svg viewBox="0 0 64 64" class="icon" aria-hidden="true">
+              <rect x="8" y="14" width="48" height="30" rx="3"></rect>
+              <rect x="4" y="46" width="56" height="6" rx="2"></rect>
+              <path d="M27 30l-6-4 6-4M37 22l6 4-6 4" fill="none" stroke-width="3"></path>
+            </svg>
+          </span>
+          <span class="subject__label">Coding</span>
+        </button>
+
+        <!-- Bar Mitzvah -->
+        <button class="subject" data-type="Bar Mitzvah" data-info="Laining, nusach, and confident delivery—with a realistic practice plan, checkpoints, and recordings." aria-controls="subject-modal">
+          <span class="subject__icon">
+            <svg viewBox="0 0 64 64" class="icon" aria-hidden="true">
+              <rect x="14" y="20" width="36" height="24" rx="2"></rect>
+              <rect x="10" y="16" width="6" height="32" rx="2"></rect>
+              <rect x="48" y="16" width="6" height="32" rx="2"></rect>
+              <path d="M22 28h20M22 34h14" fill="none" stroke-width="3"></path>
+            </svg>
+          </span>
+          <span class="subject__label">Bar Mitzvah</span>
+        </button>
+
+        <!-- Kodesh -->
+        <button class="subject" data-type="Kodesh" data-subjectarea="Chumash / Gemara" data-info="Text skills, Rashi, and sugyot flow using a 5-color highlighting system that sticks." aria-controls="subject-modal">
+          <span class="subject__icon">
+            <svg viewBox="0 0 64 64" class="icon" aria-hidden="true">
+              <path d="M14 16h28a8 8 0 018 8v24H22a8 8 0 01-8-8V16z"></path>
+              <path d="M22 16v32M26 24h10M26 30h8" fill="none" stroke-width="3"></path>
+            </svg>
+          </span>
+          <span class="subject__label">Kodesh</span>
+        </button>
+
+        <!-- Other -->
+        <button class="subject" data-type="Other" data-info="Don’t see your subject? Choose ‘Other’ and describe it. I’ll confirm availability or recommend a great fit." aria-controls="subject-modal">
+          <span class="subject__icon">
+            <svg viewBox="0 0 64 64" class="icon" aria-hidden="true">
+              <path d="M32 10l6 12 13 2-9 9 2 13-12-6-12 6 2-13-9-9 13-2z"></path>
+            </svg>
+          </span>
+          <span class="subject__label">Other</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SUBJECT MODAL -->
+  <div id="subject-modal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="modal-title">
+    <div class="modal__backdrop" data-close-modal></div>
+    <div class="modal__panel" role="document">
+      <button class="modal__close" aria-label="Close" data-close-modal>×</button>
+      <h3 id="modal-title">Subject</h3>
+      <p id="modal-body">Details…</p>
+      <div class="modal__actions">
+        <button class="btn" id="modal-inquire">Inquire about this</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACT (Centered, easier to read) -->
+  <section id="contact" class="section alt">
+    <div class="container">
+      <div class="section-header center">
+        <h2>Inquiry Form</h2>
+        <p class="muted">If you don’t see your subject, choose <em>Other</em> and describe it — I’ll confirm availability or recommend a fit.</p>
+      </div>
+
+      <div id="toast" role="status" aria-live="polite" class="toast" hidden></div>
+
+      <!-- Success screen (hidden until submit succeeds) -->
+      <div id="success-card" class="success-card" hidden>
+        <div class="success-icon">✓</div>
+        <h3>Thanks! Your inquiry was sent.</h3>
+        <p class="muted">Expect to hear a response within <strong>24 hours</strong>. If you need anything sooner, feel free to email directly.</p>
+        <a href="#top" class="btn">Back to top</a>
+      </div>
+
+      <form id="inquiry-form" class="form-card" novalidate>
+        <!-- Honeypot -->
+        <label class="hp-label">Leave this empty:
+          <input type="text" name="website" autocomplete="off" tabindex="-1" class="hp" />
+        </label>
+
+        <!-- Contact Info -->
+        <fieldset>
+          <legend>Contact Information</legend>
+          <div class="form-row">
+            <label for="from_name">Parent/Student Name</label>
+            <input type="text" id="from_name" name="from_name" placeholder="Your name" required />
+          </div>
+          <div class="form-row form-row--2">
+            <div>
+              <label for="from_email">Email</label>
+              <input type="email" id="from_email" name="from_email" placeholder="you@example.com" required />
+            </div>
+            <div>
+              <label for="phone">Phone (optional)</label>
+              <input type="tel" id="phone" name="phone" placeholder="(xxx) xxx-xxxx" />
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Tutoring Details -->
+        <fieldset>
+          <legend>Tutoring Details</legend>
+          <div class="form-row form-row--2">
+            <div>
+              <label for="lesson_type">Lesson Type</label>
+              <select name="lesson_type" id="lesson_type" required>
+                <option value="">Select…</option>
+                <option value="Coding">Coding</option>
+                <option value="Bar Mitzvah">Bar Mitzvah</option>
+                <option value="Kodesh">Kodesh</option>
+                <option value="Chumash">Chumash</option>
+                <option value="Gemara">Gemara</option>
+                <option value="Other">Other (describe below)</option>
+              </select>
+            </div>
+            <div>
+              <label for="subject_area">Subject/Topic</label>
+              <input type="text" name="subject_area" id="subject_area" placeholder="e.g., JS basics / Parsha / Laining" />
+            </div>
+          </div>
+
+          <!-- Only if Other -->
+          <div class="form-row" id="other-wrapper" hidden>
+            <label for="other_subject">Describe your subject (Other)</label>
+            <input type="text" name="other_subject" id="other_subject" placeholder="Tell me what you need" />
+          </div>
+        </fieldset>
+
+        <!-- Availability -->
+        <fieldset>
+          <legend>Availability</legend>
+          <div class="form-row">
+            <span class="label-top">Preferred Days (select all that apply)</span>
+            <div class="pill-group" id="days-group">
+              <label class="pill"><input type="checkbox" name="days" value="Sunday"> Sunday</label>
+              <label class="pill"><input type="checkbox" name="days" value="Monday"> Monday</label>
+              <label class="pill"><input type="checkbox" name="days" value="Tuesday"> Tuesday</label>
+              <label class="pill"><input type="checkbox" name="days" value="Wednesday"> Wednesday</label>
+              <label class="pill"><input type="checkbox" name="days" value="Thursday"> Thursday</label>
+              <label class="pill"><input type="checkbox" name="days" value="Friday"> Friday</label>
+              <label class="pill"><input type="checkbox" name="days" value="Saturday"> Saturday</label>
+            </div>
+          </div>
+
+          <div class="form-row form-row--2">
+            <div>
+              <label for="time_from">Earliest Time</label>
+              <input type="time" id="time_from" name="time_from" />
+            </div>
+            <div>
+              <label for="time_to">Latest Time</label>
+              <input type="time" id="time_to" name="time_to" />
+            </div>
+          </div>
+          <p class="muted">Times are assumed in <strong>America/New_York (ET)</strong> unless you specify otherwise in your message.</p>
+        </fieldset>
+
+        <!-- Message -->
+        <fieldset>
+          <legend>Your Message</legend>
+          <div class="form-row">
+            <label for="message">Goals, schedule, anything helpful…</label>
+            <textarea id="message" name="message" rows="6" required></textarea>
+          </div>
+        </fieldset>
+
+        <!-- Consent + Submit -->
+        <div class="form-footer">
+          <label class="check">
+            <input type="checkbox" name="consent" required />
+            I agree to be contacted regarding my inquiry.
+          </label>
+
+          <button class="btn" type="submit" id="submit-btn">Send Inquiry</button>
+        </div>
+
+        <p class="fineprint center">
+          By submitting, you consent to be contacted about tutoring. Your info is used only for this inquiry.
+        </p>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <small>© <span id="year"></span> Harlig Tutoring</small>
+      <a href="#top" class="top">Back to top ↑</a>
+    </div>
+  </footer>
+</body>
+</html>
