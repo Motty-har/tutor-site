@@ -190,3 +190,77 @@ input:focus,select:focus,textarea:focus{border-color:var(--accent)}
 .footer-inner{display:flex;justify-content:space-between;align-items:center;color:var(--text-dim)}
 .footer-inner a{color:var(--text-dim);text-decoration:none}
 .footer-inner a:hover{color:var(--text)}
+
+/* ===== Mobile hotfixes (paste at END of style.css) ===== */
+
+/* Avoid sideways scrollbars on small screens */
+html, body { overflow-x: hidden; -webkit-text-size-adjust: 100%; }
+img, svg { max-width: 100%; height: auto; }
+
+/* Container padding on small screens */
+@media (max-width: 768px) {
+  .container { padding: 0 16px; }
+  .hero { padding: 56px 0 48px; }
+  .hero-inner { max-width: 100%; }
+  .hero h1 { font-size: clamp(26px, 7vw, 36px); }
+  .hero p { font-size: 15px; }
+}
+
+/* About section: stack columns */
+@media (max-width: 900px) {
+  .grid-2 { grid-template-columns: 1fr; }
+}
+
+/* Subject cards: smaller icons, tighter grid */
+@media (max-width: 768px) {
+  .subject-grid {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 14px;
+  }
+  .subject { padding: 20px 14px; border-radius: 12px; }
+  .subject__icon { width: 56px; height: 56px; margin-bottom: 8px; }
+  .icon { width: 30px; height: 30px; }
+  .subject__label { font-size: 15px; }
+}
+
+/* Modal: full-bleed on phones with safer padding */
+@media (max-width: 600px) {
+  .modal__panel {
+    margin: 12vh 12px 0;
+    max-width: none;
+    border-radius: 12px;
+    padding: 16px;
+  }
+  .modal__close { top: 6px; right: 8px; }
+}
+
+/* Form: center, single-column, comfortable tap targets */
+@media (max-width: 860px) {
+  .form-card { margin: 0 8px; padding: 18px; }
+}
+@media (max-width: 760px) {
+  .form-row--2 { grid-template-columns: 1fr; gap: 10px; }
+  .form-footer { flex-direction: column; align-items: stretch; }
+  .form-footer .btn { width: 100%; }
+}
+
+/* Availability pills: wrap nicely */
+.pill-group { gap: 10px; }
+.pill { padding: 10px 12px; font-size: 14px; }
+
+/* Inputs: ensure iOS doesn't zoom (keep >=16px already) & smooth focus */
+input, select, textarea {
+  font-size: 16px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Footer spacing on mobile */
+@media (max-width: 560px) {
+  .footer-inner { flex-direction: column; gap: 8px; }
+}
+
+/* Nav: prevent wrap collisions */
+@media (max-width: 520px) {
+  .nav { height: auto; padding: 10px 0; gap: 8px; flex-wrap: wrap; }
+  nav a { display: inline-block; margin: 6px 10px 0 0; }
+}
