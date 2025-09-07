@@ -58,21 +58,26 @@ img, svg { max-width: 100%; height: auto; }
 }
 .nav {
   display: flex;
+  justify-content: center;   /* center all nav links */
   align-items: center;
-  justify-content: space-between;
-  gap: 16px;
+  gap: 24px;                 /* spacing between items */
   min-height: 68px;
-  padding-block: 6px;
 }
-.brand { display: inline-flex; align-items: center; line-height: 0; }
-.logo { height: 38px; width: auto; display: block; object-fit: contain; }
+
+.main-nav {
+  display: flex;
+  gap: 24px;
+}
+
 .main-nav a {
   color: var(--text-dim);
   text-decoration: none;
-  margin-left: 16px;
+  font-weight: 500;
 }
-.main-nav a:hover { color: var(--text); }
-.btn.btn--small { padding: 8px 14px; border-radius: 10px; }
+
+.main-nav a:hover {
+  color: var(--text);
+}
 
 /* ===== Hero ===== */
 .hero {
