@@ -8,24 +8,52 @@
   --ok:#3ecf8e;
   --bad:#ff6b6b;
   --shadow: 0 12px 28px rgba(0,0,0,.35);
+
+  --header-bg: rgba(15,17,21,0.92);
 }
 
 *{box-sizing:border-box}
 html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,sans-serif;line-height:1.5}
+html, body { overflow-x: hidden; -webkit-text-size-adjust: 100%; }
+img, svg { max-width: 100%; height: auto; }
 
 .container{max-width:1100px;margin:0 auto;padding:0 20px}
 
+/* HEADER */
 .site-header{
-  position:sticky; top:0; z-index:10;
-  backdrop-filter:saturate(1.2) blur(6px);
-  background:rgba(15,17,21,.6); border-bottom:1px solid rgba(255,255,255,.06)
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:var(--header-bg);
+  border-bottom:1px solid rgba(255,255,255,.06);
+  backdrop-filter:saturate(1.1) blur(6px);
 }
-.nav{display:flex;align-items:center;justify-content:space-between;height:64px}
-.brand{font-weight:700;letter-spacing:.3px}
-nav a{color:var(--text-dim);text-decoration:none;margin-left:18px}
-nav a:hover{color:var(--text)}
-nav .btn--small{padding:8px 14px;border-radius:10px}
+.nav{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  min-height:68px;
+  padding-block:6px;
+}
+.brand{
+  display:inline-flex;
+  align-items:center;
+  min-width:0;
+  line-height:0;
+}
+.logo{
+  height:38px;
+  width:auto;
+  display:block;
+  object-fit:contain;
+}
+.logo.rounded{ border-radius:8px; }
+.main-nav a{ color:var(--text-dim);text-decoration:none;margin-left:16px; }
+.main-nav a:hover{ color:var(--text) }
+.btn.btn--small{ padding:8px 14px;border-radius:10px }
 
+/* HERO */
 .hero{
   background: radial-gradient(1200px 600px at 20% -10%, #1f2640 0%, rgba(31,38,64,0) 60%),
               linear-gradient(180deg, #121522 0%, #0f1115 60%);
@@ -38,27 +66,29 @@ nav .btn--small{padding:8px 14px;border-radius:10px}
 .btn{display:inline-block;background:var(--accent);color:#0a0d14;padding:12px 18px;border-radius:12px;border:none;cursor:pointer;font-weight:600;box-shadow:var(--shadow)}
 .btn:disabled{opacity:.6;cursor:wait}
 
+/* SECTIONS */
 .section{padding:64px 0}
 .section.alt{background:var(--panel)}
+.section-header.center{text-align:center;max-width:760px;margin:0 auto 18px}
+.section-title{margin:0 0 6px}
+.muted{color:var(--text-dim)}
 
+/* ABOUT */
 .grid-2{display:grid;gap:28px;grid-template-columns:1.2fr .8fr}
 @media (max-width:900px){.grid-2{grid-template-columns:1fr}}
-
 .card{
-  background:var(--panel-alt); border:1px solid rgba(255,255,255,.06);
-  border-radius:16px; padding:20px; box-shadow:var(--shadow)
+  background:var(--panel-alt);
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:16px;
+  padding:20px;
+  box-shadow:var(--shadow)
 }
-
 .checks{padding-left:18px}
 .checks li{margin:6px 0}
 .bullets{padding-left:18px}
 .bullets li{margin:6px 0}
 
-.section-header.center{text-align:center;max-width:760px;margin:0 auto 18px}
-.section-title{margin:0 0 6px}
-.muted{color:var(--text-dim)}
-
-/* SUBJECT CARDS (clean dark theme) */
+/* SUBJECT CARDS */
 .subject-grid {
   margin-top: 24px;
   display: grid;
@@ -118,7 +148,7 @@ nav .btn--small{padding:8px 14px;border-radius:10px}
 .center{text-align:center}
 [hidden]{display:none !important}
 
-/* FORM (centered, readable, single-column with smart 2-up rows) */
+/* FORM */
 .form-card{
   max-width: 760px;
   margin: 0 auto;
@@ -186,33 +216,29 @@ input:focus,select:focus,textarea:focus{border-color:var(--accent)}
   font-weight:800;font-size:32px;border:1px solid #2bbf78;
 }
 
+/* FOOTER */
 .site-footer{border-top:1px solid rgba(255,255,255,.06);padding:24px 0;background:#0f1115}
 .footer-inner{display:flex;justify-content:space-between;align-items:center;color:var(--text-dim)}
 .footer-inner a{color:var(--text-dim);text-decoration:none}
 .footer-inner a:hover{color:var(--text)}
 
-/* ===== Mobile hotfixes (paste at END of style.css) ===== */
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.logo-footer {
+  height: 28px;
+  width: auto;
+}
 
-/* Avoid sideways scrollbars on small screens */
-html, body { overflow-x: hidden; -webkit-text-size-adjust: 100%; }
-img, svg { max-width: 100%; height: auto; }
-
-/* Container padding on small screens */
+/* MOBILE FIXES */
 @media (max-width: 768px) {
   .container { padding: 0 16px; }
   .hero { padding: 56px 0 48px; }
   .hero-inner { max-width: 100%; }
   .hero h1 { font-size: clamp(26px, 7vw, 36px); }
   .hero p { font-size: 15px; }
-}
-
-/* About section: stack columns */
-@media (max-width: 900px) {
-  .grid-2 { grid-template-columns: 1fr; }
-}
-
-/* Subject cards: smaller icons, tighter grid */
-@media (max-width: 768px) {
   .subject-grid {
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
     gap: 14px;
@@ -222,8 +248,6 @@ img, svg { max-width: 100%; height: auto; }
   .icon { width: 30px; height: 30px; }
   .subject__label { font-size: 15px; }
 }
-
-/* Modal: full-bleed on phones with safer padding */
 @media (max-width: 600px) {
   .modal__panel {
     margin: 12vh 12px 0;
@@ -233,8 +257,6 @@ img, svg { max-width: 100%; height: auto; }
   }
   .modal__close { top: 6px; right: 8px; }
 }
-
-/* Form: center, single-column, comfortable tap targets */
 @media (max-width: 860px) {
   .form-card { margin: 0 8px; padding: 18px; }
 }
@@ -243,24 +265,11 @@ img, svg { max-width: 100%; height: auto; }
   .form-footer { flex-direction: column; align-items: stretch; }
   .form-footer .btn { width: 100%; }
 }
-
-/* Availability pills: wrap nicely */
-.pill-group { gap: 10px; }
-.pill { padding: 10px 12px; font-size: 14px; }
-
-/* Inputs: ensure iOS doesn't zoom (keep >=16px already) & smooth focus */
-input, select, textarea {
-  font-size: 16px;
-  -webkit-tap-highlight-color: transparent;
-}
-
-/* Footer spacing on mobile */
 @media (max-width: 560px) {
   .footer-inner { flex-direction: column; gap: 8px; }
 }
-
-/* Nav: prevent wrap collisions */
-@media (max-width: 520px) {
-  .nav { height: auto; padding: 10px 0; gap: 8px; flex-wrap: wrap; }
-  nav a { display: inline-block; margin: 6px 10px 0 0; }
+@media (max-width: 520px){
+  .logo{ height: 32px; }
+  .nav{ flex-wrap: wrap; gap: 10px; padding-block: 10px; }
+  .main-nav{ width: 100%; display: flex; gap: 12px; justify-content: flex-end; }
 }
