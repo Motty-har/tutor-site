@@ -26,47 +26,32 @@ html, body {
 img, svg { max-width: 100%; height: auto; }
 .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
 
-/* ===== Logo Bar ===== */
-.logo-bar {
-  background: #121522;
-  text-align: center;
-  padding: 16px 10px;
-  border-bottom: 1px solid rgba(255, 255, 255, .08);
-}
-.logo-bar__img {
-  height: 60px;
-  width: auto;
-  display: block;
-  margin: 0 auto 6px;
-}
-.logo-bar__tagline {
-  color: var(--text-dim);
-  font-size: 18px;
-  margin: 0;
-  font-weight: 500;
-}
-
-/* ===== Header ===== */
 .site-header {
   position: sticky;
   top: 0;
   z-index: 100;
   background: var(--header-bg);
-  border-bottom: 1px solid rgba(255, 255, 255, .06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   backdrop-filter: saturate(1.1) blur(6px);
-  text-align: center
 }
+
 .nav {
   display: flex;
-  justify-content: center;   /* center all nav links */
   align-items: center;
-  gap: 24px;                 /* spacing between items */
+  justify-content: space-between;
   min-height: 68px;
+}
+
+.brand {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: 0.5px;
 }
 
 .main-nav {
   display: flex;
-  gap: 24px;
+  gap: 20px;
 }
 
 .main-nav a {
@@ -78,6 +63,12 @@ img, svg { max-width: 100%; height: auto; }
 .main-nav a:hover {
   color: var(--text);
 }
+
+.btn.btn--small {
+  padding: 8px 14px;
+  border-radius: 10px;
+}
+
 
 /* ===== Hero ===== */
 .hero {
