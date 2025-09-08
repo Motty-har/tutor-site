@@ -5,30 +5,39 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>mhtutoring — Portfolio</title>
   <link rel="stylesheet" href="style.css" />
-  <script src="https://cdn.emailjs.com/sdk/3.11.0/email.min.js" defer></script>
-  <script src="script.js" defer></script>
+
+  <!-- EmailJS (v3 works fine) -->
+  <script src="https://cdn.emailjs.com/sdk/3.11.0/email.min.js"></script>
+
+  <script>
+    // ------- EmailJS init: put your real public key here -------
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.emailjs) {
+        emailjs.init("YOUR_PUBLIC_KEY"); // e.g. "U2zAbC123XYZ"
+      }
+    });
+  </script>
 </head>
 <body>
   <a id="top"></a>
 
   <!-- HEADER -->
   <header class="site-header">
-  <div class="container nav">
-    <div class="brand">MHTutoring</div>
-    <nav class="main-nav">
-      <a href="#about">About</a>
-      <a href="#subjects">Subjects</a>
-      <a href="#contact" class="btn btn--small">Get in Touch</a>
-    </nav>
-  </div>
-</header>
-
+    <div class="container nav">
+      <div class="brand">MHTutoring</div>
+      <nav class="main-nav">
+        <a href="#about">About</a>
+        <a href="#subjects">Subjects</a>
+        <a href="#contact" class="btn btn--small">Get in Touch</a>
+      </nav>
+    </div>
+  </header>
 
   <!-- HERO -->
   <section class="hero">
     <div class="container hero-inner">
-      <h1>Structured, Engaging Tutoring</h1>
-      <p>Support in <strong>Coding</strong>, <strong>Bar Mitzvah</strong>, and <strong>Kodesh</strong> (Chumash &amp; Gemara). Clear goals, steady progress, and parent-friendly updates.</p>
+      <h1>Structured. Supportive. Personal.</h1>
+      <p>Lessons are tailored to each student, with clear goals, steady progress, and communication that keeps parents involved every step of the way.</p>
       <a class="btn" href="#contact">Inquire Now</a>
     </div>
   </section>
@@ -128,40 +137,82 @@
     <div class="container">
       <div class="section-header center">
         <h2>Inquiry Form</h2>
-        <p class="muted">If you don’t see your subject, choose <em>Other</em> and describe it — I’ll confirm availability or recommend a fit.</p>
+        <p class="muted">Tell me a bit about the student and your preferences.</p>
       </div>
 
+      <!-- success notice (hidden until submit succeeds) -->
+      <div id="success-card" class="success-card" hidden>
+        <div class="success-icon">✓</div>
+        <h3>Thanks! Your inquiry was sent.</h3>
+        <p>Expect to hear a response within <strong>24 hours</strong>.</p>
+      </div>
+
+      <!-- toast area -->
       <div id="toast" role="status" aria-live="polite" class="toast" hidden></div>
 
       <form id="inquiry-form" class="form-card" novalidate>
-        <label class="hp-label">Leave this empty:
-          <input type="text" name="website" autocomplete="off" tabindex="-1" class="hp" />
-        </label>
+        <!-- Honeypot (spam trap) -->
+        <input type="text" name="website" id="website" autocomplete="off" tabindex="-1" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;pointer-events:none;"/>
 
+        <!-- Meta (hidden) -->
+        <input type="hidden" id="page_url" name="page_url" />
+        <input type="hidden" id="timestamp" name="timestamp" />
+
+        <!-- Contact Information -->
         <fieldset>
           <legend>Contact Information</legend>
-          <div class="form-row">
-            <label for="from_name">Parent/Student Name</label>
-            <input type="text" id="from_name" name="from_name" required />
-          </div>
           <div class="form-row form-row--2">
+            <div>
+              <label for="parent_first">Parent's First Name</label>
+              <input type="text" id="parent_first" name="parent_first" required />
+            </div>
+            <div>
+              <label for="parent_last">Parent's Last Name</label>
+              <input type="text" id="parent_last" name="parent_last" required />
+            </div>
+          </div>
+
+          <div class="form-row form-row--2">
+            <div>
+              <label for="phone">Phone Number (optional)</label>
+              <input type="tel" id="phone" name="phone" inputmode="tel" maxlength="15" />
+            </div>
             <div>
               <label for="from_email">Email</label>
               <input type="email" id="from_email" name="from_email" required />
             </div>
+          </div>
+        </fieldset>
+
+        <!-- Student Details -->
+        <fieldset>
+          <legend>Student Details</legend>
+          <div class="form-row form-row--2">
             <div>
-              <label for="phone">Phone (optional)</label>
-              <input type="tel" id="phone" name="phone" />
+              <label for="student_name">Student's Name</label>
+              <input type="text" id="student_name" name="student_name" required />
+            </div>
+            <div>
+              <label for="student_grade">Grade Level</label>
+              <select id="student_grade" name="student_grade" required>
+                <option value="">Select…</option>
+                <option>K</option><option>1</option><option>2</option><option>3</option>
+                <option>4</option><option>5</option><option>6</option>
+                <option>7</option><option>8</option><option>9</option>
+                <option>10</option><option>11</option><option>12</option>
+              </select>
             </div>
           </div>
         </fieldset>
 
+        <!-- Subject & Preferences -->
         <fieldset>
-          <legend>Tutoring Details</legend>
+          <legend>Subject & Preferences</legend>
+
           <div class="form-row form-row--2">
             <div>
-              <label for="lesson_type">Lesson Type</label>
-              <select name="lesson_type" id="lesson_type" required>
+              <label for="lesson_type">Subject</label>
+              <select id="lesson_type" name="lesson_type" required>
                 <option value="">Select…</option>
                 <option value="Coding">Coding</option>
                 <option value="Bar Mitzvah">Bar Mitzvah</option>
@@ -171,28 +222,54 @@
                 <option value="Other">Other</option>
               </select>
             </div>
-            <div>
-              <label for="subject_area">Subject/Topic</label>
-              <input type="text" name="subject_area" id="subject_area" />
+            <div id="other-wrapper" hidden>
+              <label for="other_subject">If “Other”, please specify</label>
+              <input type="text" id="other_subject" name="other_subject" />
             </div>
           </div>
-          <div class="form-row" id="other-wrapper" hidden>
-            <label for="other_subject">Describe your subject (Other)</label>
-            <input type="text" name="other_subject" id="other_subject" />
+
+          <div class="form-row">
+            <span class="label-top">Preferred Days (select all that apply)</span>
+            <div class="pill-group" id="days-group">
+              <label class="pill"><input type="checkbox" name="preferred_days" value="Mon">Mon</label>
+              <label class="pill"><input type="checkbox" name="preferred_days" value="Tue">Tue</label>
+              <label class="pill"><input type="checkbox" name="preferred_days" value="Wed">Wed</label>
+              <label class="pill"><input type="checkbox" name="preferred_days" value="Thu">Thu</label>
+              <label class="pill"><input type="checkbox" name="preferred_days" value="Fri">Fri</label>
+              <label class="pill"><input type="checkbox" name="preferred_days" value="Sat">Sat</label>
+              <label class="pill"><input type="checkbox" name="preferred_days" value="Sun">Sun</label>
+            </div>
+          </div>
+
+          <div class="form-row form-row--2">
+            <div>
+              <label for="preferred_times">Preferred Times</label>
+              <input type="text" id="preferred_times" name="preferred_times" placeholder="e.g., Weekdays 4–6pm; Sundays 10–12" required />
+            </div>
+            <div>
+              <label for="modality">Modality</label>
+              <select id="modality" name="modality" required>
+                <option value="">Select…</option>
+                <option>In-person</option>
+                <option>Virtual</option>
+                <option>Hybrid</option>
+              </select>
+            </div>
           </div>
         </fieldset>
 
+        <!-- Additional Message -->
         <fieldset>
-          <legend>Your Message</legend>
+          <legend>Notes (optional)</legend>
           <div class="form-row">
-            <label for="message">Goals, schedule, anything helpful…</label>
-            <textarea id="message" name="message" rows="6" required></textarea>
+            <label for="message">Anything helpful (goals, timeline, etc.)</label>
+            <textarea id="message" name="message" rows="5"></textarea>
           </div>
         </fieldset>
 
         <div class="form-footer">
           <label class="check">
-            <input type="checkbox" name="consent" required />
+            <input type="checkbox" id="consent" name="consent" required />
             I agree to be contacted regarding my inquiry.
           </label>
           <button class="btn" type="submit" id="submit-btn">Send Inquiry</button>
@@ -205,11 +282,19 @@
   <footer class="site-footer">
     <div class="container footer-inner">
       <div class="footer-brand">
-        <img src="M.png" alt="mhtutoring logo" class="logo-footer">
         <small>© <span id="year"></span></small>
       </div>
       <a href="#top" class="top">Back to top ↑</a>
     </div>
   </footer>
+
+  <script src="script.js"></script>
+  <script>
+    // footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+    // fill meta fields
+    document.getElementById('page_url').value = window.location.href;
+    document.getElementById('timestamp').value = new Date().toISOString();
+  </script>
 </body>
 </html>
