@@ -16,16 +16,18 @@ const EMAILJS_TEMPLATE_ID = "template_8cump19";   // Contact Us template (includ
   const otherWrapper= $('#other-wrapper');
   const otherSubject= $('#other_subject');
 
-  // Init EmailJS
+  // Initialize EmailJS once DOM is ready
   document.addEventListener('DOMContentLoaded', () => {
     if (window.emailjs) {
       emailjs.init(EMAILJS_PUBLIC_KEY);
       console.log("✅ EmailJS initialized");
+    } else {
+      console.error("❌ EmailJS SDK not loaded. Check your <script src> in index.html");
     }
   });
 
-  // Toggle "Other" field
-  lessonType.addEventListener('change', () => {
+  // Toggle "Other" subject field
+  lessonType?.addEventListener('change', () => {
     const showOther = lessonType.value === 'Other';
     otherWrapper.hidden = !showOther;
     if (showOther) {
@@ -36,17 +38,21 @@ const EMAILJS_TEMPLATE_ID = "template_8cump19";   // Contact Us template (includ
     }
   });
 
+  // Toast UI
   function showToast(msg, ok = true) {
+    if (!toast) return alert(msg);
     toast.textContent = msg;
     toast.className = `toast ${ok ? 'ok' : 'err'}`;
     toast.hidden = false;
     setTimeout(() => { toast.hidden = true; }, 5000);
   }
 
+  // Collect preferred days
   function gatherPreferredDays() {
     return $$('input[name="preferred_days"]:checked').map(b => b.value).join(', ');
   }
 
+  // Basic validation
   function validateForm() {
     const requiredIds = [
       'parent_first','parent_last','from_email','student_name',
@@ -58,11 +64,12 @@ const EMAILJS_TEMPLATE_ID = "template_8cump19";   // Contact Us template (includ
       if (el.type === 'checkbox' && !el.checked) return false;
       if (el.value.trim() === '') return false;
     }
-    if (lessonType.value === 'Other' && otherSubject.value.trim() === '') return false;
+    if (lessonType?.value === 'Other' && otherSubject.value.trim() === '') return false;
     return true;
   }
 
-  form.addEventListener('submit', async (e) => {
+  // Handle form submit
+  form?.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     if (!validateForm()) {
@@ -91,8 +98,9 @@ const EMAILJS_TEMPLATE_ID = "template_8cump19";   // Contact Us template (includ
     submitBtn.textContent = "Sending…";
 
     try {
+      if (!window.emailjs) throw new Error("EmailJS SDK not loaded");
       const res = await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, payload);
-      console.log("EmailJS response:", res);
+      console.log("✅ EmailJS response:", res);
 
       form.reset();
       otherWrapper.hidden = true;
@@ -100,11 +108,13 @@ const EMAILJS_TEMPLATE_ID = "template_8cump19";   // Contact Us template (includ
       successCard.hidden = false;
       successCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
     } catch (err) {
-      console.error(err);
+      console.error("❌ EmailJS send error:", err);
       showToast("Sending failed. Check console for details.", false);
     } finally {
       submitBtn.disabled = false;
       submitBtn.textContent = "Send Inquiry";
     }
   });
+
+  console.log("📨 script.js loaded, form handler attached.");
 })();
